@@ -2,8 +2,10 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import React from 'react';
+import Boton from '../ui/Boton';
 import Buscar from '../ui/Buscar';
 import Navegacion from './Navegacion';
+
 
 const ContenedorHeader = styled.div`
 
@@ -28,6 +30,9 @@ const Logo = styled.p`
 
 
 const Header = () => {
+
+    const usuario = false;
+
     return (
         <header
             css={ css`
@@ -36,7 +41,12 @@ const Header = () => {
             `}
         >
             <ContenedorHeader>
-                <div>
+                <div
+                    css={css`
+                        display:flex;
+                        align-items: center;
+                    `}
+                >
                     <Link href="/">
                         <Logo>P</Logo>
                     </Link>
@@ -44,12 +54,34 @@ const Header = () => {
                     <Buscar />
                     <Navegacion />
                 </div>
-                <div>
-                    <p>Hola</p>
-                    <button type="button">Cerrar Sesion</button>
+                <div
+                    css={css`
+                        display: flex;
+                        align-items: center;
 
-                    <Link href="/">Login</Link>
-                    <Link href="/">Crear Cuenta</Link>
+                    `}
+                >
+                    { usuario ? (
+                        <>                    
+                            <p
+                                css={css`
+                                    margin-right: 2rem;
+                                `}
+                            >Hola</p>
+                            <Boton bgColor="true">Cerrar Sesion</Boton>
+                        </>
+                    ) : (
+                        <>
+                            <Link href="/login">
+                                <Boton
+                                    bgColor="true"
+                                >Login</Boton>
+                            </Link>
+                            <Link href="/crear-cuenta">
+                                <Boton>Crear Cuenta</Boton>
+                            </Link>
+                        </>
+                    )}
                 </div>
             </ContenedorHeader>
         </header>
