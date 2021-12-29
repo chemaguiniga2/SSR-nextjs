@@ -1,6 +1,6 @@
 import app from 'firebase/compat/app';
 import firebaseConfig from "./config";
-import {getAuth, createUserWithEmailAndPassword, updateProfile} from 'firebase/auth';
+import {getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signOut} from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 
 class Firebase {
@@ -14,6 +14,7 @@ class Firebase {
         this.auth = getAuth();
     }
 
+    //metodo para registrar
     async registrar(nombre, email, password) {
         console.log('Entra a registrar');
         const nuevoUsuario = await createUserWithEmailAndPassword(this.auth, email, password);
@@ -21,6 +22,16 @@ class Firebase {
         return await updateProfile(nuevoUsuario.user, {
             displayName: nombre
         });
+    }
+
+    //metodo para iniciar sesion
+    async login(email, password){
+        return await signInWithEmailAndPassword(this.auth, email, password);
+    }
+
+    //cierra la sesion del usuario
+    async cerrarSesion() {
+        await signOut(this.auth);
     }
 }
 
