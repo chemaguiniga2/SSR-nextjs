@@ -2,6 +2,9 @@ import app from 'firebase/compat/app';
 import firebaseConfig from "./config";
 import {getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, signOut} from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from 'firebase/storage';
+import 'firebase/compat/storage';
 
 class Firebase {
     constructor(){
@@ -12,6 +15,8 @@ class Firebase {
         // this.auth = getAuth();
         initializeApp(firebaseConfig);
         this.auth = getAuth();
+        this.db = getFirestore();
+        this.storage = getStorage();
     }
 
     //metodo para registrar
