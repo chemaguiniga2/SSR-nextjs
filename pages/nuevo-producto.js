@@ -13,13 +13,14 @@ import { collection, addDoc } from "firebase/firestore";
 import useValidacion from '../hooks/useValidacion';
 import validarCrearProducto from '../validacion/validarCrearProducto';
 import { storage } from '../firebase/config';
+import { route } from 'next/dist/server/router';
 
 
 
 const STATE_INICIAL = {
     nombre: '',
     empresa: '',
-    //imagen: '',
+    imagen: '',
     url: '',
     descripcion: ''
 }
@@ -79,6 +80,7 @@ export default function NuevoProducto() {
 
     //insertarlo a la base de datos
     const productos = await addDoc(collection(db, "productos"), (producto));
+    return router.push('/');
     
   }
 
