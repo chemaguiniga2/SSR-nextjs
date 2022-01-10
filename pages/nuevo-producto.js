@@ -9,11 +9,13 @@ import FileUploader from 'react-firebase-file-uploader';
 import { FirebaseContext } from '../firebase';
 import { collection, addDoc } from "firebase/firestore";
 
+
 //validaciones
 import useValidacion from '../hooks/useValidacion';
 import validarCrearProducto from '../validacion/validarCrearProducto';
 import { storage } from '../firebase/config';
 import { route } from 'next/dist/server/router';
+import Error404 from '../components/layouts/404';
 
 
 
@@ -75,7 +77,12 @@ export default function NuevoProducto() {
       descripcion,
       votos: 0,
       comentarios: [],
-      creado: Date.now()
+      creado: Date.now(),
+      creador: {
+        id: usuario.uid,
+        nombre: usuario.displayName
+      },
+      haVotado: []
     }
 
     //insertarlo a la base de datos
@@ -110,9 +117,12 @@ export default function NuevoProducto() {
           } );
   };
 
+
   return (
     <div>
       <Layout>
+        { !usuario ? <Error404 /> : (
+
         <>
             <h1
                 css={css`
@@ -215,6 +225,7 @@ export default function NuevoProducto() {
                 />
             </Formulario>
         </>
+        )}
       </Layout>
     </div>
   )

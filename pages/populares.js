@@ -1,8 +1,9 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+
 import styled from '@emotion/styled';
 import Layout from '../components/layouts/Layout';
+import DetallesProducto from '../components/layouts/DetallesProducto';
+import useProductos from '../hooks/useProductos';
+
 
 
 
@@ -13,10 +14,23 @@ export default function Populares() {
     color: red;
   `;
 
+  const { productos } = useProductos('votos');
+
   return (
     <div>
       <Layout>
-        <Heading>Populares</Heading>
+        <div className='listado-productos'>
+          <div className='contenedor'>
+            <ul className='bg-white'>
+              {productos.map(producto => (
+                <DetallesProducto
+                  key={producto.id}
+                  producto={producto}
+                />
+              ))}
+            </ul>
+          </div>
+        </div>
       </Layout>
     </div>
   )

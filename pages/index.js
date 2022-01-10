@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import Layout from '../components/layouts/Layout';
-import React, {useEffect, useState, useContext} from 'react';
-import { FirebaseContext } from '../firebase';
-import { collection, getDocs, query } from "firebase/firestore";
+import React from 'react';
 import DetallesProducto from '../components/layouts/DetallesProducto';
+import useProductos from '../hooks/useProductos';
+
 
 
 
@@ -13,30 +13,7 @@ import DetallesProducto from '../components/layouts/DetallesProducto';
 export default function Home() {
 
 
-  const [ productos, guardarProductos ] = useState([]);
-  const { firebase } = useContext(FirebaseContext);
-  const { db } = firebase;
-  
-  
-  
-  useEffect(() => {
-
-
-      const querySnapshot = async () => {
-        
-        const res = await getDocs(collection(db, "productos"));
-        const resultado = res.docs.map(doc => {
-          return {
-            id: doc.id,
-            ...doc.data()
-          }
-        });
-        guardarProductos(resultado);
-
-      }
-      querySnapshot();
-  }, []);
-
+  const { productos } = useProductos('votos');
 
 
   return (
